@@ -1,0 +1,25 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: express-nodejs-role
+  namespace: express-nodejs
+rules:
+  - apiGroups: ["", "apps"] # "" indicates the core API group
+    resources: ["*"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: express-nodejs-role-binding
+  namespace: express-nodejs
+subjects:
+- kind: ServiceAccount
+  name: express-nodejs-service-account
+  namespace: express-nodejs
+roleRef:
+  kind: Role
+  name: express-nodejs-role
+  apiGroup: rbac.authorization.k8s.io
+---
